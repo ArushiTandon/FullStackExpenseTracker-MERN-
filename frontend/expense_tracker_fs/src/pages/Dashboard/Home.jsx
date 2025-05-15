@@ -89,21 +89,21 @@ const Home = () => {
           />
 
           <ExpenseTransactions
-          transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+          transactions={dashboardData?.last30DaysExpenses?.Transaction || []}
           onSeeMore={() => navigate("/expense")}
           />
 
           <Last30DaysExpenses
-          data={dashboardData?.last30DaysExpenses?.transactions || []}
+          data={dashboardData?.last30DaysExpenses?.Transaction || []}
           />
 
           <RecentIncomeWithChart
-            data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+            data={dashboardData?.last60DaysIncome?.transaction?.slice(0,4) || []}
             totalIncome={dashboardData?.totalIncome || 0}
           />
 
           <RecentIncome
-            transactions={dashboardData?.last60DaysIncome?.transactions || []}
+            transactions={dashboardData?.last60DaysIncome?.transaction || []}
             onSeeMore={() => navigate("/income")}
           />
         </div>
