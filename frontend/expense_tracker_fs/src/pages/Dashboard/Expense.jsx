@@ -4,6 +4,12 @@ import DashboardLayout from '../../components/layouts/DashboardLayout';
 import axiosInstance from '../../util/axiosInstance';
 import { API_PATHS } from '../../util/apiPaths';
 import ExpenseOverview from '../../components/Expense/ExpenseOverview';
+import AddExpenseForm from '../../components/Expense/AddExpenseForm';
+import Modal from '../../components/Modal';
+import toast from 'react-hot-toast';
+import ExpenseList from '../../components/Expense/ExpenseList';
+import DeleteAlert from '../../components/DeleteAlert';
+
 
 const Expense = () => {
   useUserAuth();
@@ -76,20 +82,41 @@ useEffect(() => {
   return () => {}
 }, [])
 
-// //Delete Income
-// const deleteExpense = async (id) => {
-//   try {
-//   await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_INCOME(id));
+//Delete Expense
+const deleteExpense = async (id) => {
+  try {
+  await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
 
-//     setOpenDeleteAlert({ show: false, data: null });
-//     toast.success("Income deleted successfully");
-//     fetchExpenseDetails();
+    setOpenDeleteAlert({ show: false, data: null });
+    toast.success("Expense deleted successfully");
+    fetchExpenseDetails();
     
-//   } catch (error) {
-//     console.error("Error deleting expense:", error.response?.data?.message || error.message);
+  } catch (error) {
+    console.error("Error deleting expense:", error.response?.data?.message || error.message);
     
-//   }
-// };
+  }
+};
+
+const handleDownloadExpenseDetails = async () => {
+  try {
+    const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE_EXCEL, {
+      responseType: "blob",
+    })
+
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const link = document.createElement("a")
+    link.href = url;
+    link.setAttribute("download", "expense_details.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading expense details:", error.response?.data?.message || error.message);
+    toast.error("Error downloading expense details");
+  }
+};
+
 
   return (
     <DashboardLayout activeMenu="Expense">
@@ -101,7 +128,33 @@ useEffect(() => {
             onExpense={() => setOpenAddExpenseModal(true)}
             />
           </div>
+          <ExpenseList
+          transactions={expenseData}
+          onDelete={(id) => {
+            setOpenDeleteAlert({ show: true, data: id });
+          }}
+          onDownload={handleDownloadExpenseDetails}
+          />
         </div>
+
+        <Modal isOpen={openAddExpenseModal} onClose={() => setOpenAddExpenseModal(false)} title="Add Expense">
+          <AddExpenseForm onAddExpense={handleAddExpense} />
+        </Modal>
+
+         <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({
+            show: false,
+            data: null,
+          })}
+          title="Delete Expense"
+          >
+            <DeleteAlert
+            content="Are you sure you want to delete this expense detail?"
+            onDelete={() => deleteExpense(openDeleteAlert.data)}
+            />
+        </Modal>
+
       </div>
     </DashboardLayout>
   )
