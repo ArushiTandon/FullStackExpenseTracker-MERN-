@@ -4,7 +4,7 @@ const { generateToken } = require('../middlewares/jwt');
 exports.signUp = async (req, res) => {
   console.log("SIGN UP BODY:", req.body);
 
-  const { fullName, email, password, profileImageUrl } = req.body;
+  const { fullName, email, password,  } = req.body;
 
   try {
     const existingUser = await Users.findOne({ fullName });
@@ -14,7 +14,7 @@ exports.signUp = async (req, res) => {
       return res.status(200).json({ message: 'Username already exists' });
     }
 
-    const newUser = new Users({ fullName, email, password, profileImageUrl });
+    const newUser = new Users({ fullName, email, password });
     await newUser.save(); // Mongoose will run pre-save hook to hash the password
 
     res.status(201).json({
@@ -85,10 +85,33 @@ exports.getUser = async (req, res) => {
 };
 
 exports.uploadImage = async (req, res) => {
+
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
 
+  const userId = req.user.id; // from jwtAuthMiddleware
   const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-  res.status(200).json({ imageUrl });
+
+
+  try {
+    const user = await Users.findByIdAndUpdate(
+      userId,
+      { profileImageUrl: imageUrl },
+      { new: true } // return updated user
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: "Profile image updated successfully!",
+      profileImageUrl: user.profileImageUrl
+    });
+  } catch (error) {
+    console.error("Error updating profile image:", error);
+    res.status(500).json({ message: "Failed to update profile image" });
+  }
 };
+

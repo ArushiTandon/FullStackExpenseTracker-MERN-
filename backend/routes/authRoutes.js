@@ -17,5 +17,5 @@ router.post('/login', localAuthMid,  login);
 router.get('/profile', jwtAuthMiddleware, getUser);
 
 //upload profile image
-router.post('/uploads', jwtAuthMiddleware, upload.single("image"), uploadImage)
+router.post('/uploads', jwtAuthMiddleware ,upload.single("image"), uploadImage)
 module.exports = router;
