@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import IncomeOverview from '../../components/income/IncomeOverview';
-import { data } from 'react-router-dom';
 import axiosInstance from '../../util/axiosInstance';
 import { API_PATHS } from '../../util/apiPaths';
 import Modal from '../../components/Modal';
