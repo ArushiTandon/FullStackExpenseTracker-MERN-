@@ -1,5 +1,5 @@
 import React from 'react'
-// import { CARD_2 } from '../../assets/images/index.js'
+import CARD_2 from '../../assets/images/card2.png';
 import { LuTrendingUpDown } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const AuthLayout = ({ children }) => {
                     color="bg-primary"
                     />
             </div>
-            <img src="{CARD_2}" 
+            <img src={CARD_2} 
             className="w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15" 
             />
          </div>
