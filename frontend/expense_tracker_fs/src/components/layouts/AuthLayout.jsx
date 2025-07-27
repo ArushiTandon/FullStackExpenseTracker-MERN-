@@ -47,5 +47,4 @@ const StatsInfoCard = ({ icon, label, value, color}) => {
     </div>
     </div>
 
-
 }
