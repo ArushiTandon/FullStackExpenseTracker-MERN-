@@ -1,11 +1,10 @@
-// ForgotPassword.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../../../components/layouts/AuthLayout';
-import Input from '../../../components/inputs/Input';
-import { validateEmail } from '../../../util/helper';
-import axiosInstance from '../../../util/axiosInstance';
-import { API_PATHS } from '../../../util/apiPaths';
+import AuthLayout from '../layouts/AuthLayout';
+import Input from '../inputs/Input';
+import { validateEmail } from '../../util/helper';
+import axiosInstance from '../../util/axiosInstance';
+import { API_PATHS } from '../../util/apiPaths';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

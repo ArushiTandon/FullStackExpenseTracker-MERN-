@@ -13,8 +13,8 @@ import Home from './pages/Dashboard/Home';
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import UserProvider from './context/userContext';
-import ForgotPassword from './pages/auth/password/ForgotPassword';
-import ResetPassword from './pages/auth/password/ResetPassword';
+import ForgotPassword from './components/Password/ForgotPassword';
+import ResetPassword from './components/Password/ResetPassword';
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {

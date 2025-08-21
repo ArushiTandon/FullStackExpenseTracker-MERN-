@@ -1,10 +1,9 @@
-// ResetPassword.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import AuthLayout from '../../../components/layouts/AuthLayout';
-import Input from '../../../components/inputs/Input';
-import axiosInstance from '../../../util/axiosInstance';
-import { API_PATHS } from '../../../util/apiPaths';
+import AuthLayout from '../layouts/AuthLayout';
+import Input from '../inputs/Input';
+import axiosInstance from '../../util/axiosInstance';
+import { API_PATHS } from '../../util/apiPaths';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
