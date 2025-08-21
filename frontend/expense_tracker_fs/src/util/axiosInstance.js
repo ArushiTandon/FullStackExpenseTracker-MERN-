@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response) { // Fixed missing parenthesis
+        if (error.response) { 
             if (error.response.status === 401) {
                 console.warn("Unauthorized - possibly invalid token");
                 // window.location.href = "/login";

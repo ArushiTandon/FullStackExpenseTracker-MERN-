@@ -90,6 +90,8 @@ const Login = () => {
 
         <p className='text-[13px] text-slate-800 mt-3'>Don't have an account?{" "}<Link className="font-medium text-primary underline" to="/signup">SignUp</Link>
         </p>
+        <p className='text-[13px] text-slate-800 mt-3'>Forgot Password?{" "}<Link className="font-medium text-primary underline" to="/forgotpassword">Reset</Link>
+        </p>
       </form>
     </div>
     </AuthLayout>

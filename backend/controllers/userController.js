@@ -35,16 +35,16 @@ exports.login = async (req, res) => {
     const user = await Users.findOne({ email });
 
     if (!user) {
-      console.log('Invalid email or password');
-      return res.status(401).json({ error: 'Invalid email or password' });
+      console.log('Invalid email');
+      return res.status(401).json({ error: 'Invalid email' });
     }
 
     const isPasswordValid = await user.comparePassword(password);
     console.log('Password Valid:', isPasswordValid);
 
     if (!isPasswordValid) {
-      console.log('Invalid email or password');
-      return res.status(401).json({ error: 'Invalid email or password' });
+      console.log('Invalid email password');
+      return res.status(401).json({ error: 'Invalid password' });
     }
 
     const payload = {
@@ -90,7 +90,7 @@ exports.uploadImage = async (req, res) => {
     return res.status(400).json({ message: 'No file uploaded' });
   }
 
-  const userId = req.user.id; // from jwtAuthMiddleware
+  const userId = req.user.id; 
   const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
 
 

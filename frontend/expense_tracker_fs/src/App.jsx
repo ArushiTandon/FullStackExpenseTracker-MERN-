@@ -13,6 +13,8 @@ import Home from './pages/Dashboard/Home';
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import UserProvider from './context/userContext';
+import ForgotPassword from './pages/auth/password/ForgotPassword';
+import ResetPassword from './pages/auth/password/ResetPassword';
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/dashboard" element={<Home />} />
           <Route path="/income" element={<Income />} />
           <Route path="/expense" element={<Expense />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword/:id" element={<ResetPassword />} />
        </Routes> 
       </Router>
     </div>
